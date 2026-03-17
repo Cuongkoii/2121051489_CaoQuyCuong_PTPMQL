@@ -1,0 +1,22 @@
+@model ptpmql.Models.Student
+
+<h2>Nhập thông tin sinh viên</h2>
+
+<form method="post">
+    <div>
+        <label>Mã SV:</label>
+        <input asp-for="StudentCode" />
+    </div>
+
+    <div>
+        <label>Họ tên:</label>
+        <input asp-for="FullName" />
+    </div>
+
+    <button type="submit">Gửi</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <h3>@ViewBag.Message</h3>
+}

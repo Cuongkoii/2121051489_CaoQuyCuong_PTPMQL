@@ -1,0 +1,36 @@
+@model ptpmql.Models.Student
+
+<h2>Thêm sinh viên</h2>
+
+<form method="post">
+
+    <div>
+        <label>Mã SV:</label>
+        <input asp-for="StudentCode" />
+        <span asp-validation-for="StudentCode" style="color:red"></span>
+    </div>
+
+    <div>
+        <label>Họ tên:</label>
+        <input asp-for="FullName" />
+        <span asp-validation-for="FullName" style="color:red"></span>
+    </div>
+
+    <div>
+        <label>Tuổi:</label>
+        <input asp-for="Age" />
+        <span asp-validation-for="Age" style="color:red"></span>
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email" style="color:red"></span>
+    </div>
+
+    <button type="submit">Lưu</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

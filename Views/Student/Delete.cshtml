@@ -1,0 +1,11 @@
+@model ptpmql.Models.Student
+
+<h2>Xoá sinh viên</h2>
+
+<p>Bạn có chắc muốn xoá @Model.FullName không?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">Xoá</button>
+    <a asp-action="Index">Huỷ</a>
+</form>
