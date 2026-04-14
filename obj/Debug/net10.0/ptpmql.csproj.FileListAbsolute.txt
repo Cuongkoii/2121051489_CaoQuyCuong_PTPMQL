@@ -364,3 +364,4 @@ D:\Ptpmql\MVC\ptpmql\obj\Debug\net10.0\refint\ptpmql.dll
 D:\Ptpmql\MVC\ptpmql\obj\Debug\net10.0\ptpmql.pdb
 D:\Ptpmql\MVC\ptpmql\obj\Debug\net10.0\ptpmql.genruntimeconfig.cache
 D:\Ptpmql\MVC\ptpmql\obj\Debug\net10.0\ref\ptpmql.dll
+D:\Ptpmql\MVC\ptpmql\obj\Debug\net10.0\ptpmql.sourcelink.json
