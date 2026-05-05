@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ptpmql.Data;
 using ptpmql.Models;
+using ptpmql.ViewModels;
+using ClosedXML.Excel;
 
 namespace ptpmql.Controllers
 {
@@ -13,16 +17,27 @@ namespace ptpmql.Controllers
             _context = context;
         }
 
-        // 🔹 READ (Danh sách)
+        // 🔹 INDEX (HIỂN THỊ SV + KHOA)
         public IActionResult Index()
         {
-            var students = _context.Students.ToList();
-            return View(students);
+            var data = _context.Students
+                .Include(s => s.Faculty)
+                .Select(s => new StudentFacultyVM
+                {
+                
+                    StudentCode = s.StudentCode,
+                    FullName = s.FullName,
+                    FacultyName = s.Faculty.FacultyName
+                })
+                .ToList();
+
+            return View(data);
         }
 
         // 🔹 CREATE (GET)
         public IActionResult Create()
         {
+            ViewBag.FacultyID = new SelectList(_context.Faculties, "FacultyID", "FacultyName");
             return View();
         }
 
@@ -36,6 +51,8 @@ namespace ptpmql.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.FacultyID = new SelectList(_context.Faculties, "FacultyID", "FacultyName", student.FacultyID);
             return View(student);
         }
 
@@ -44,6 +61,8 @@ namespace ptpmql.Controllers
         {
             var student = _context.Students.Find(id);
             if (student == null) return NotFound();
+
+            ViewBag.FacultyID = new SelectList(_context.Faculties, "FacultyID", "FacultyName", student.FacultyID);
             return View(student);
         }
 
@@ -57,20 +76,21 @@ namespace ptpmql.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.FacultyID = new SelectList(_context.Faculties, "FacultyID", "FacultyName", student.FacultyID);
             return View(student);
         }
 
-        // 🔹 DELETE (GET)
-        public IActionResult Delete(int id)
+        // 🔹 DELETE
+        public IActionResult Delete(string id)
         {
             var student = _context.Students.Find(id);
             if (student == null) return NotFound();
             return View(student);
         }
 
-        // 🔹 DELETE (POST)
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(string id)
         {
             var student = _context.Students.Find(id);
             if (student != null)
@@ -81,4 +101,5 @@ namespace ptpmql.Controllers
             return RedirectToAction("Index");
         }
     }
+    
 }

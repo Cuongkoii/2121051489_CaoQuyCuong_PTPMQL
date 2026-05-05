@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ptpmql.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 

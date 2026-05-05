@@ -16,32 +16,62 @@ namespace ptpmql.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");
 
-            modelBuilder.Entity("ptpmql.Models.Student", b =>
+            modelBuilder.Entity("ptpmql.Models.Faculty", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("FacultyID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("FacultyName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("FacultyID");
+
+                    b.ToTable("Faculties");
+                });
+
+            modelBuilder.Entity("ptpmql.Models.Student", b =>
+                {
+                    b.Property<string>("StudentCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Age")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("FacultyID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentCode")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("TEXT");
+                    b.HasKey("StudentCode");
 
-                    b.HasKey("Id");
+                    b.HasIndex("FacultyID");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("ptpmql.Models.Student", b =>
+                {
+                    b.HasOne("ptpmql.Models.Faculty", "Faculty")
+                        .WithMany("Students")
+                        .HasForeignKey("FacultyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("ptpmql.Models.Faculty", b =>
+                {
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

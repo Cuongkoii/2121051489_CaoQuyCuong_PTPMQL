@@ -15,6 +15,11 @@
         <input asp-for="FullName" />
         <span asp-validation-for="FullName" style="color:red"></span>
     </div>
+    
+    <div>
+        <label>Khoa</label>
+        <select asp-for="FacultyID" asp-items="ViewBag.FacultyID"></select>
+    </div>
 
     <div>
         <label>Tuổi:</label>
